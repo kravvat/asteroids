@@ -1,7 +1,8 @@
 import pygame
 from constants import *
 from player import Player
-
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -10,11 +11,15 @@ def main():
     
     drawable = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group() 
 
     Player.containers = (drawable, updatable) # Assigns all instances of the Player to group_a & group_b
+    Asteroid.containers = (drawable, updatable, asteroids)
+    AsteroidField.containers = (updatable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) # Spawns player at the center
-    
+    asteroid_field = AsteroidField()    
+
     dt = 0 # This will be a variable to store delta time
 
     while True: # Infinite game loop
