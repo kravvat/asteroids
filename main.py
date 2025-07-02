@@ -18,6 +18,7 @@ def main():
                 return
             
         screen.fill("black") # Fills background with black
+        player.update(dt) # Enables movement and rotation
         player.draw(screen) # Re-renders the player
         pygame.display.flip() # Refreshes screen
 
