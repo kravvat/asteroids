@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -15,7 +16,7 @@ def main():
 
     Player.containers = (drawable, updatable) # Assigns all instances of the Player to group_a & group_b
     Asteroid.containers = (drawable, updatable, asteroids)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) # Spawns player at the center
     asteroid_field = AsteroidField()    
@@ -28,6 +29,10 @@ def main():
                 return
             
         updatable.update(dt) # Updates whole group
+
+        for obj in asteroids:
+            if obj.is_colliding(player) == True:
+                sys.exit("Game over!")
 
         screen.fill("black") # Fills background with black
 
