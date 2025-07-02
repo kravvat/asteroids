@@ -6,20 +6,29 @@ from player import Player
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Sets game window size
-
     clock = pygame.time.Clock() # 'Clock' class will provide methods to help control a game's framerate
-    dt = 0 # This will be a variable to store delta time
+    
+    drawable = pygame.sprite.Group()
+    updatable = pygame.sprite.Group()
+
+    Player.containers = (drawable, updatable) # Assigns all instances of the Player to group_a & group_b
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) # Spawns player at the center
+    
+    dt = 0 # This will be a variable to store delta time
 
     while True: # Infinite game loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # Enables exiting the game by clicking on 'X'
                 return
             
+        updatable.update(dt) # Updates whole group
+
         screen.fill("black") # Fills background with black
-        player.update(dt) # Enables movement and rotation
-        player.draw(screen) # Re-renders the player
+
+        for obj in drawable: # Draws whole group
+            obj.draw(screen)
+
         pygame.display.flip() # Refreshes screen
 
         dt = clock.tick(60) / 1000 # 'Tick' method locks FPS to 60 and returns the number of ms since the last frame
