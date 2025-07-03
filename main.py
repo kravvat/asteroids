@@ -33,9 +33,15 @@ def main():
             
         updatable.update(dt) # Updates whole group
 
-        for obj in asteroids:
-            if obj.is_colliding(player) == True:
+        for a in asteroids: # Collision logic for player
+            if a.is_colliding(player) == True:
                 sys.exit("Game over!")
+
+        for a in asteroids: # Logic for destroying/splitting asteroids
+            for s in shots:
+                if s.is_colliding(a) == True:
+                    s.kill()
+                    a.split()
 
         screen.fill("black") # Fills background with black
 
@@ -47,7 +53,6 @@ def main():
         dt = clock.tick(60) / 1000 # 'Tick' method locks FPS to 60 and returns the number of ms since the last frame
                                    # Dividing it by 1000 converts ms to seconds
                                    # This gives us new 'dt' (delta time)
-
 
 if __name__ == "__main__":
     main()
