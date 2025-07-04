@@ -1,4 +1,4 @@
-# 🛰️ Asteroids
+# 🕹️ Asteroids
 
 A beginner-friendly Python game project that recreates the classic **Asteroids** arcade experience using the `pygame` library and object-oriented programming.
 
